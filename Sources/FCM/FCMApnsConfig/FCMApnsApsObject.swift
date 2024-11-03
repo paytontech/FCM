@@ -48,6 +48,10 @@ public struct FCMApnsApsObject: Codable, Equatable {
         case normal
         case high
     }
+    
+    public var event: String?
+    public var contentState: [String: Any]?
+    public var attributes: [String: Any]?
 
     enum CodingKeys: String, CodingKey {
         case alert
@@ -58,6 +62,9 @@ public struct FCMApnsApsObject: Codable, Equatable {
         case category
         case threadId="thread-id"
         case mutableContent="mutable-content"
+        case event
+        case contentState="content-state"
+        case attributes
     }
 
     struct Config {
@@ -69,6 +76,9 @@ public struct FCMApnsApsObject: Codable, Equatable {
         var category: String?
         var threadId: String?
         var mutableContent: Bool?
+        var event: String?
+        var contentState: [String: Any]?
+        var attributes: [String: Any]?
     }
 
     init(config: Config?) {
@@ -89,6 +99,9 @@ public struct FCMApnsApsObject: Codable, Equatable {
         if let value = config?.mutableContent, value {
             mutableContent = 1
         }
+        self.contentState = config?.contentState
+        self.attributes = config?.attributes
+        self.event = config?.event
     }
     
     public static var `default`: FCMApnsApsObject {
@@ -102,7 +115,10 @@ public struct FCMApnsApsObject: Codable, Equatable {
                 contentAvailable: Bool? = nil,
                 category: String? = nil,
                 threadId: String? = nil,
-                mutableContent: Bool? = nil) {
+                mutableContent: Bool? = nil,
+                event: String? = nil,
+                contentState: [String: Any]? = nil,
+                attributes: [String: Any]? = nil) {
         self.init(config: Config(alert: FCMApnsAlertOrString.fromRaw(alertString),
                                  badge: badge,
                                  sound: sound,
@@ -110,7 +126,7 @@ public struct FCMApnsApsObject: Codable, Equatable {
                                  contentAvailable: contentAvailable,
                                  category: category,
                                  threadId: threadId,
-                                 mutableContent: mutableContent))
+                                 mutableContent: mutableContent, event: event, contentState: contentState, attributes: attributes))
     }
     
     public init(alert: FCMApnsAlert? = nil,
@@ -120,7 +136,11 @@ public struct FCMApnsApsObject: Codable, Equatable {
                 contentAvailable: Bool? = nil,
                 category: String? = nil,
                 threadId: String? = nil,
-                mutableContent: Bool? = nil) {
+                mutableContent: Bool? = nil,
+                event: String? = nil,
+                contentState: [String: Any]? = nil,
+                attributes: [String: Any]? = nil
+                ) {
         self.init(config: Config(alert: FCMApnsAlertOrString.fromRaw(alert),
                                  badge: badge,
                                  sound: sound,
@@ -128,7 +148,7 @@ public struct FCMApnsApsObject: Codable, Equatable {
                                  contentAvailable: contentAvailable,
                                  category: category,
                                  threadId: threadId,
-                                 mutableContent: mutableContent))
+                                 mutableContent: mutableContent, event: event, contentState: contentState, attributes: attributes))
     }
 }
 
