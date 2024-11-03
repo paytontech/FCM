@@ -58,6 +58,7 @@ public struct FCMApnsApsObject: Codable, Equatable {
     public var event: String?
     public var contentState: JSON?
     public var attributes: JSON?
+    public var attributesType: String?
 
     enum CodingKeys: String, CodingKey {
         case alert
@@ -71,6 +72,7 @@ public struct FCMApnsApsObject: Codable, Equatable {
         case event
         case contentState="content-state"
         case attributes
+        case attributesType="attributes-type"
     }
 
     struct Config {
@@ -85,6 +87,7 @@ public struct FCMApnsApsObject: Codable, Equatable {
         var event: String?
         var contentState: JSON?
         var attributes: JSON?
+        var attributesType: String?
     }
 
     init(config: Config?) {
@@ -108,6 +111,7 @@ public struct FCMApnsApsObject: Codable, Equatable {
         self.contentState = config?.contentState
         self.attributes = config?.attributes
         self.event = config?.event
+        self.attributesType = config?.attributesType
     }
     
     public static var `default`: FCMApnsApsObject {
@@ -124,7 +128,8 @@ public struct FCMApnsApsObject: Codable, Equatable {
                 mutableContent: Bool? = nil,
                 event: String? = nil,
                 contentState: JSON? = nil,
-                attributes: JSON? = nil) {
+                attributes: JSON? = nil,
+                attributesType: String? = nil) {
         self.init(config: Config(alert: FCMApnsAlertOrString.fromRaw(alertString),
                                  badge: badge,
                                  sound: sound,
@@ -132,7 +137,7 @@ public struct FCMApnsApsObject: Codable, Equatable {
                                  contentAvailable: contentAvailable,
                                  category: category,
                                  threadId: threadId,
-                                 mutableContent: mutableContent, event: event, contentState: contentState, attributes: attributes))
+                                 mutableContent: mutableContent, event: event, contentState: contentState, attributes: attributes, attributesType: attributesType))
     }
     
     public init(alert: FCMApnsAlert? = nil,
@@ -145,7 +150,8 @@ public struct FCMApnsApsObject: Codable, Equatable {
                 mutableContent: Bool? = nil,
                 event: String? = nil,
                 contentState: JSON? = nil,
-                attributes: JSON? = nil
+                attributes: JSON? = nil,
+                attributesType: String? = nil
                 ) {
         self.init(config: Config(alert: FCMApnsAlertOrString.fromRaw(alert),
                                  badge: badge,
@@ -154,7 +160,7 @@ public struct FCMApnsApsObject: Codable, Equatable {
                                  contentAvailable: contentAvailable,
                                  category: category,
                                  threadId: threadId,
-                                 mutableContent: mutableContent, event: event, contentState: contentState, attributes: attributes))
+                                 mutableContent: mutableContent, event: event, contentState: contentState, attributes: attributes, attributesType: attributesType))
     }
 }
 
