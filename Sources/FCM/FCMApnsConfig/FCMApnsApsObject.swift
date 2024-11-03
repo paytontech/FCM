@@ -1,6 +1,12 @@
+import SwiftyJSON
 // The following struct is based on
 // https://developer.apple.com/documentation/usernotifications/setting_up_a_remote_notification_server/generating_a_remote_notification
+
 public struct FCMApnsApsObject: Codable, Equatable {
+    public static func == (lhs: FCMApnsApsObject, rhs: FCMApnsApsObject) -> Bool {
+        lhs.alert?.asMessage == rhs.alert?.asMessage
+    }
+    
     /// The information for displaying an alert.
     /// A dictionary is recommended.
     /// If you specify a string, the alert displays your string as the body text.
@@ -50,8 +56,8 @@ public struct FCMApnsApsObject: Codable, Equatable {
     }
     
     public var event: String?
-    public var contentState: [String: Any]?
-    public var attributes: [String: Any]?
+    public var contentState: JSON?
+    public var attributes: JSON?
 
     enum CodingKeys: String, CodingKey {
         case alert
@@ -77,8 +83,8 @@ public struct FCMApnsApsObject: Codable, Equatable {
         var threadId: String?
         var mutableContent: Bool?
         var event: String?
-        var contentState: [String: Any]?
-        var attributes: [String: Any]?
+        var contentState: JSON?
+        var attributes: JSON?
     }
 
     init(config: Config?) {
@@ -117,8 +123,8 @@ public struct FCMApnsApsObject: Codable, Equatable {
                 threadId: String? = nil,
                 mutableContent: Bool? = nil,
                 event: String? = nil,
-                contentState: [String: Any]? = nil,
-                attributes: [String: Any]? = nil) {
+                contentState: JSON? = nil,
+                attributes: JSON? = nil) {
         self.init(config: Config(alert: FCMApnsAlertOrString.fromRaw(alertString),
                                  badge: badge,
                                  sound: sound,
@@ -138,8 +144,8 @@ public struct FCMApnsApsObject: Codable, Equatable {
                 threadId: String? = nil,
                 mutableContent: Bool? = nil,
                 event: String? = nil,
-                contentState: [String: Any]? = nil,
-                attributes: [String: Any]? = nil
+                contentState: JSON? = nil,
+                attributes: JSON? = nil
                 ) {
         self.init(config: Config(alert: FCMApnsAlertOrString.fromRaw(alert),
                                  badge: badge,
