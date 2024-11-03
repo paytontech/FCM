@@ -31,14 +31,17 @@ extension FCM {
         return getAccessToken().flatMap { accessToken -> EventLoopFuture<ClientResponse> in
             var headers = HTTPHeaders()
             headers.bearerAuthorization = .init(token: accessToken)
-
-            return self.client.post(URI(string: url), headers: headers) { (req) in
+            var test = self.client.post(URI(string: url), headers: headers) { (req) in
                 struct Payload: Content {
                     let message: FCMMessageDefault
                 }
                 let payload = Payload(message: message)
+                
                 try req.content.encode(payload)
+                
             }
+            print("FCM \(test)")
+            return test
         }
         .validate()
         .flatMapThrowing { res in
