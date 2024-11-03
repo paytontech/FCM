@@ -36,7 +36,7 @@ extension FCM {
                     let message: FCMMessageDefault
                 }
                 let payload = Payload(message: message)
-                
+                print("FCM payload \(String(data: try! JSONEncoder().encode(payload), encoding: .utf8))")
                 try req.content.encode(payload)
                 
             }
