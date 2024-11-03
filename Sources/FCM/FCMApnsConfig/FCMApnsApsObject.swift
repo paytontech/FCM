@@ -4,7 +4,7 @@ import SwiftyJSON
 
 public struct FCMApnsApsObject: Codable, Equatable {
     public static func == (lhs: FCMApnsApsObject, rhs: FCMApnsApsObject) -> Bool {
-        lhs.alert?.asMessage == rhs.alert?.asMessage
+        lhs.contentState == lhs.contentState
     }
     
     /// The information for displaying an alert.
